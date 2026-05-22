@@ -11,15 +11,14 @@ LiquidCrystal_I2C lcd1(0x27, 16, 2);
 const int pot = A2; //potentiometer
 const int pBut = 8; //push button
 int patchWorkFix = 9;
-long randCards; 
-int Ran; 
-int inputPot; //
+int Ran; //name of the random in that gets rerolled
+int inputPot; 
 int toggle; //checks what state the button is in
-int togStateOn;
+int togStateOn; 
 int togStateOff;
 unsigned long time = 0; 
 unsigned long debounce = 200UL; 
-bool patPlay = false;
+bool patPlay = false; // used to determine if the patten has played yet
 bool ran1 = false; // genuinley the best solution i could think of
 bool ran2 = false;
 bool ran3 = false;
@@ -52,10 +51,6 @@ void loop()
     else
       togStateOn = HIGH;
       time = millis();
-      ran3 = false;
-      ran4 = false;
-      ran5 = false;
-      ran6 = false;
   }
 
   digitalWrite(patchWorkFix, togStateOn);
@@ -82,13 +77,15 @@ void potTest()
   lcd1.setCursor(0, 1);
   lcd1.print(inputPot);
   lcd1.print("   ");
+  lcd1.setCursor(3, 1);
+  lcd1.print("-----------------");
 }
 
 void cards()
 {
   if (inputPot > 10)
   {
-    if (!ran1)
+    if (!ran1) 
       {
         Ran = analogRead(A0);
         randomSeed(Ran);
@@ -183,7 +180,7 @@ void cards()
   {   
     lcd1.setCursor(12,0);
     lcd1.print("   ");
-    ran6 = false;
+    ran5 = false;
   }
 
   if (inputPot > 212.5)
